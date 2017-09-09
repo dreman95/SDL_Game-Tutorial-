@@ -23,4 +23,7 @@ private:
 	bool m_running;
 	SDL_Window* g_pWindow = nullptr;
 	SDL_Renderer* g_pRenderer = nullptr;
+	SDL_Texture* m_texture = nullptr;
+	SDL_Rect m_sourceRectangle;
+	SDL_Rect m_destinationRectangle;
 };

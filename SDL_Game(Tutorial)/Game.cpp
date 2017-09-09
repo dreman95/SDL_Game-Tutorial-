@@ -54,6 +54,9 @@ else
 	return false; // SDL init fail
 }
 std::cout << "init success\n";
+
+
+
 m_running = true; // everything inited successfully, start the main loop
 
 return true;
@@ -63,12 +66,26 @@ void Game::render()
 {
 	
 	SDL_RenderClear(g_pRenderer);
+	SDL_RenderCopy(g_pRenderer, m_texture, &m_sourceRectangle, &m_destinationRectangle);
 	// show the window
 	SDL_RenderPresent(g_pRenderer);
 }
 
 void Game::update()
 {
+	//Load texture
+	SDL_Surface* pTempSurface = SDL_LoadBMP("Assets/rider.bmp");
+
+	m_texture = SDL_CreateTextureFromSurface(g_pRenderer, pTempSurface);
+
+	SDL_FreeSurface(pTempSurface);
+
+	SDL_QueryTexture(m_texture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
+
+	m_destinationRectangle.x = m_sourceRectangle.x = 0;
+	m_destinationRectangle.y = m_sourceRectangle.y = 0;
+	m_destinationRectangle.w = m_sourceRectangle.w;
+	m_destinationRectangle.h = m_sourceRectangle.h;
 }
 
 void Game::handleEvents()
