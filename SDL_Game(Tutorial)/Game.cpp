@@ -74,18 +74,22 @@ void Game::render()
 void Game::update()
 {
 	//Load texture
-	SDL_Surface* pTempSurface = SDL_LoadBMP("Assets/rider.bmp");
+	SDL_Surface* pTempSurface = SDL_LoadBMP("Assets/animate.bmp");
 
 	m_texture = SDL_CreateTextureFromSurface(g_pRenderer, pTempSurface);
 
 	SDL_FreeSurface(pTempSurface);
 
-	SDL_QueryTexture(m_texture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
+	//dimensions of the first image in sprite sheet.
+	m_sourceRectangle.w = 128;
+	m_sourceRectangle.h = 82;
 
 	m_destinationRectangle.x = m_sourceRectangle.x = 0;
 	m_destinationRectangle.y = m_sourceRectangle.y = 0;
 	m_destinationRectangle.w = m_sourceRectangle.w;
 	m_destinationRectangle.h = m_sourceRectangle.h;
+
+	m_sourceRectangle.x = 128 * int(((SDL_GetTicks() / 100) % 6));
 }
 
 void Game::handleEvents()
